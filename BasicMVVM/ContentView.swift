@@ -19,7 +19,7 @@
 
 import SwiftUI
 
-let url = "https://jsonplaceholder.typicode.com/photos"
+let photoApiUrl = "https://jsonplaceholder.typicode.com/photos"
 
 struct Photo: Identifiable, Codable {
     let id = UUID()
@@ -36,14 +36,15 @@ class PhotoViewModel: ObservableObject {
     @Published var photos: [Photo] = [
         .init(title: "title",thumbnailUrl: "URL")
     ]
-    
-    //エラーの処理後でかく
+
     func URLsseion() {
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: photoApiUrl) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
+                guard let data = data else { return }
+                print(data)
                 do {
-                    self.photos = try JSONDecoder().decode([Photo].self, from: data!)
+                    self.photos = try JSONDecoder().decode([Photo].self, from: data)
                 } catch {
                     print(error)
                 }
