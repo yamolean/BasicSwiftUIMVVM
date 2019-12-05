@@ -15,6 +15,7 @@
 //  "url": "https://via.placeholder.com/600/92c952",
 //  "thumbnailUrl": "https://via.placeholder.com/150/92c952"
 //},...]
+//
 
 import SwiftUI
 
