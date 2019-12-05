@@ -57,13 +57,10 @@ struct ContentView: View {
                             Text(photo.title)
                                 .font(.system(size: 20))
                                 .fontWeight(.semibold)
-                                .background(Color.red)
                             Spacer()
-                            
                         }.padding(.bottom, 4)
                         Text(photo.thumbnailUrl)
                             .padding(.bottom, 16)
-                            .background(Color.blue)
                     }
                 }.padding(.horizontal, 22)
                     .padding(.top, 8)
