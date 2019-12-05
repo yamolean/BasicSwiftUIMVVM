@@ -20,10 +20,26 @@ import SwiftUI
 
 let url = "https://jsonplaceholder.typicode.com/photos"
 
-struct Course: Identifiable, Decodable {
+struct Photo: Identifiable, Decodable {
     let id = UUID()
     let title: String
     let thumbnailUrl: String
+}
+
+class PhotoViewModel: ObservableObject {
+    @Published var photos = [Photo]()
+    
+    //エラーの処理後でかく
+    func URLsseion() {
+        guard let url = URL(string: url) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    self.photos = try JSONDecoder().decode([Photo].self, from: data!)
+                } catch {
+                    print("Failed to decode JSON:", error)
+                }
+        }.resume()
+    }
 }
 
 struct ContentView: View {
