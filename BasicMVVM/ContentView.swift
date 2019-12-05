@@ -28,7 +28,26 @@ struct Course: Identifiable, Decodable {
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    //ここでforでtextにtitle,thumbnailUrlを入れまくる
+                    HStack {
+                        Text("title")
+                            .font(.system(size: 20))
+                            .fontWeight(.semibold)
+                            .background(Color.red)
+                        Spacer()
+                        
+                    }.padding(.bottom, 4)
+                    Text("thumbnailUrl")
+                        .padding(.bottom, 16)
+                        .background(Color.blue)
+                }.padding(.horizontal, 22)
+                    .padding(.top, 8)
+            }
+            .navigationBarTitle("タイムライン",displayMode: .inline)
+        }
     }
 }
 
