@@ -21,10 +21,15 @@ import SwiftUI
 
 let url = "https://jsonplaceholder.typicode.com/photos"
 
-struct Photo: Identifiable, Decodable {
+struct Photo: Identifiable, Codable {
     let id = UUID()
-    let title: String
-    let thumbnailUrl: String
+    var title: String
+    var thumbnailUrl: String
+    
+    enum Codingkeys: String, CodingKey {
+        case title = "title"
+        case thumbnailUrl = "thumbnailUrl"
+    }
 }
 
 class PhotoViewModel: ObservableObject {
