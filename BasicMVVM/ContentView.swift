@@ -36,8 +36,8 @@ class PhotoViewModel: ObservableObject {
     @Published var photos: [Photo] = [
         .init(title: "title",thumbnailUrl: "URL")
     ]
-
-    func URLsseion() {
+    
+    func urlSseion() {
         guard let url = URL(string: photoApiUrl) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
@@ -75,7 +75,7 @@ struct ContentView: View {
             }
             .navigationBarTitle("PhotoGalellry",displayMode: .inline)
             .navigationBarItems(trailing: Button(action: {
-                self.photoViewModel.URLsseion()
+                self.photoViewModel.urlSseion()
             }, label: {
                 Text("Session")
             }))
