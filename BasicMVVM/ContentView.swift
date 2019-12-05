@@ -28,7 +28,9 @@ struct Photo: Identifiable, Decodable {
 }
 
 class PhotoViewModel: ObservableObject {
-    @Published var photos = [Photo]()
+    @Published var photos: [Photo] = [
+        .init(title: "title",thumbnailUrl: "URL")
+    ]
     
     //エラーの処理後でかく
     func URLsseion() {
@@ -38,7 +40,7 @@ class PhotoViewModel: ObservableObject {
                 do {
                     self.photos = try JSONDecoder().decode([Photo].self, from: data!)
                 } catch {
-                    print("Failed to decode JSON:", error)
+                    print(error)
                 }
             }
         }.resume()
