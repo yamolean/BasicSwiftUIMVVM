@@ -37,10 +37,14 @@ class PhotoViewModel: ObservableObject {
         .init(title: "title",thumbnailUrl: "URL")
     ]
     
-    func urlSseion() {
+    func fetchPhotos() {
         guard let url = URL(string: photoApiUrl) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
+                if let error = error {
+                    print(error)
+                    return
+                }
                 guard let data = data else { return }
                 print(data)
                 do {
@@ -59,7 +63,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(alignment: .leading) {
+                VStack {
                     ForEach(photoViewModel.photos) { photo in
                         HStack {
                             Text(photo.title)
@@ -67,15 +71,18 @@ struct ContentView: View {
                                 .fontWeight(.semibold)
                             Spacer()
                         }.padding(.bottom, 4)
-                        Text(photo.thumbnailUrl)
-                            .padding(.bottom, 16)
+                        HStack {
+                            Text(photo.thumbnailUrl)
+                                .padding(.bottom, 16)
+                            Spacer()
+                        }
                     }
                 }.padding(.horizontal, 22)
                     .padding(.top, 8)
             }
             .navigationBarTitle("PhotoGalellry",displayMode: .inline)
             .navigationBarItems(trailing: Button(action: {
-                self.photoViewModel.urlSseion()
+                self.photoViewModel.fetchPhotos()
             }, label: {
                 Text("Session")
             }))
